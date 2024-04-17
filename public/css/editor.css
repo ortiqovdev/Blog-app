@@ -85,15 +85,15 @@ textarea::-webkit-scrollbar-thumb {
   align-items: center;
 }
 
-.btn{
-    border: none;
-    outline: none;
-    cursor: pointer;
+.btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
-.btn.grey{
-    background: #a5a5a5;
-    color:  #fff;
-    margin-left: 20px;
-    font-size: 14px;
+.btn.grey {
+  background: #a5a5a5;
+  color: #fff;
+  margin-left: 20px;
+  font-size: 14px;
 }

@@ -1,12 +1,13 @@
-const blogTitleField = document.querySelector('.title')
-const articeFeild = document.querySelector('.article')
+const blogTitleField = document.querySelector('.title');
+const articleFeild = document.querySelector('.article');
 
+// banner
 const bannerImage = document.querySelector('#banner-upload');
 const banner = document.querySelector(".banner");
 let bannerPath;
 
 const publishBtn = document.querySelector('.publish-btn');
-const uploadInput = document.querySelector('#image-upload')
+const uploadInput = document.querySelector('#image-upload');
 
 bannerImage.addEventListener('change', () => {
     uploadImage(bannerImage, "banner");
@@ -18,7 +19,7 @@ uploadInput.addEventListener('change', () => {
 
 const uploadImage = (uploadFile, uploadType) => {
     const [file] = uploadFile.files;
-    if (file && file.type.includes("image")) {
+    if(file && file.type.includes("image")){
         const formdata = new FormData();
         formdata.append('image', file);
 
@@ -26,52 +27,53 @@ const uploadImage = (uploadFile, uploadType) => {
             method: 'post',
             body: formdata
         }).then(res => res.json())
-            .then(data => {
-                if (uploadType == "image") {
-                    addImage(data, file.name);
-                } else {
-                    bannerPath = `${location.origin}/${data}`;
-                    banner.style.backgroundImage = `url("${bannerPath}")`;
-                }
-            })
-    } else {
+        .then(data => {
+            if(uploadType == "image"){
+                addImage(data, file.name);
+            } else{
+                bannerPath = `${location.origin}/${data}`;
+                banner.style.backgroundImage = `url("${bannerPath}")`;
+            }
+        })
+    } else{
         alert("upload Image only");
     }
 }
 
 const addImage = (imagepath, alt) => {
-    let curPos = articeFeild.selectionStart;
-    let textToInsert = `\r![$alt](${imagepath})\r`;
-    articeFeild.value = articeFeild.value.slice(0, curPos) + textToInsert +
-        articeFeild.value.slice(curPos);
+    let curPos = articleFeild.selectionStart;
+    let textToInsert = `\r![${alt}](${imagepath})\r`;
+    articleFeild.value = articleFeild.value.slice(0, curPos) + textToInsert + articleFeild.value.slice(curPos);
 }
 
-let months = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"]
+let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 publishBtn.addEventListener('click', () => {
-    if (articeFeild.value.length && blogTitleField.value.length) {
-        let letters = 'abcdefghijkmnopqrstuvwxyz';
-        let blogTitle = blogTitleField.value.split(" ").join("-")
+    if(articleFeild.value.length && blogTitleField.value.length){
+        // generating id
+        let letters = 'abcdefghijklmnopqrstuvwxyz';
+        let blogTitle = blogTitleField.value.split(" ").join("-");
         let id = '';
-        for (let i = 0; i < 4; i++) {
+        for(let i = 0; i < 4; i++){
             id += letters[Math.floor(Math.random() * letters.length)];
         }
 
+        // setting up docName
         let docName = `${blogTitle}-${id}`;
-        let date = new Date();
+        let date = new Date(); // for published at info
 
+        //access firstore with db variable;
         db.collection("blogs").doc(docName).set({
             title: blogTitleField.value,
-            article: articeFeild.value,
+            article: articleFeild.value,
             bannerImage: bannerPath,
-            publishedAt: `${date.getDate()} ${months[date.getMonth()]}${date.
-                getFullYear()}`
+            publishedAt: `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
         })
-            .then(() => {
-                console.log('date entered')
-            })
-            .catch((err) => {
-                console.error(err);
-            })
+        .then(() => {
+            location.href = `/${docName}`;
+        })
+        .catch((err) => {
+            console.error(err);
+        })
     }
 })

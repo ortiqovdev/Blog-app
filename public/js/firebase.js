@@ -1,32 +1,12 @@
-// const firebaseConfig = {
-//     apiKey: "Sizning-API-KEY-m",
-//     authDomain: "Sizning-authDomain-m",
-//     projectId: "Sizning-projectId-m",
-//     storageBucket: "Sizning-storageBucket-m",
-//     messagingSenderId: "Sizning-messagingSenderId-m",
-//     appId: "Sizning-appId-m"
-// };
-
-// // Firebase-ni boshlang'ichlashtirish
-// firebase.initializeApp(firebaseConfig);
-
-// // Firestore bazasiga ulash
-// let db = firebase.firestore();
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-import { firestore } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-    apiKey: "Sizning-API-KEY-m",
-    authDomain: "Sizning-authDomain-m",
-    projectId: "Sizning-projectId-m",
-    storageBucket: "Sizning-storageBucket-m",
-    messagingSenderId: "Sizning-messagingSenderId-m",
-    appId: "Sizning-appId-m"
+  apiKey: "AIzaSyB4mLYNqKmge_K56wgY2hMBhADUeGbW76s",
+  authDomain: "blog-app-e7206.firebaseapp.com",
+  projectId: "blog-app-e7206",
+  storageBucket: "blog-app-e7206.appspot.com",
+  messagingSenderId: "152139627885",
+  appId: "1:152139627885:web:264fec1928fd9ca8ccae64"
 };
 
-// Firebase-ni boshlang'ichlashtirish
 const app = initializeApp(firebaseConfig);
-
-// Firestore bazasiga ulanish
-const db = firestore(app);
